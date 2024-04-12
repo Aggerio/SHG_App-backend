@@ -136,6 +136,44 @@ def get_organisation_posts():
     else:
         return jsonify({'error': 'Request must be in JSON format'}), 400
 
+@app.route('/create_post', methods=['POST'])
+def create_post():
+    # requires json of the below type
+    #   {
+    #     "organisation_name": "",
+    #     "post_header": "Pottery Exhibition",
+    #     "post_description": "Our terracotta pottery will be showcased at the local exhibition this weekend.",
+    #     "post_img_link": "https://example.com/pottery_exhibition.jpg",
+    #     "post_data": "2023-04-20"
+    #   }
+    if request.is_json:
+        data = request.get_json()  # Parse JSON data
+        organisation = data.get('organisation')
+        try:
+            collection = db.get_collection("SHGs")
+            query = {"organisation_name": organisation}
+            organis = collection.find_one(query)
+            print(organis)
+            if organis is not None and len(organis) != 0:
+                return_posts = []
+                posts = organis['organisation_posts']
+                collection = db.get_collection('Posts')
+                for i in posts:
+                    query = {'post_id': i}
+                    temp = collection.find_one(query)
+                    temp['_id'] = str(temp['_id'])
+                    return_posts.append(temp)
+                return jsonify(return_posts)
+            else:
+                print("No posts found by the organisation")
+                return jsonify({"data": "none"})
+        except Exception as e:
+            print(f"the following exception occured: {e}")
+            return jsonify({"data": "none"})
+    else:
+        return jsonify({'error': 'Request must be in JSON format'}), 400
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
