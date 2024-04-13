@@ -134,22 +134,6 @@ posts = [
   }
 ]
 
-
-db = client.get_database("shg_site")
-
-# users_collection = db.get_collection("Users")
-# users_collection.insert_one({"user_id": 4, "user_name": "Aryaman Chandra","user_email": "aryamanow@gmail.com", "user_organization": None, "user_location": "Delhi"})
-# users_collection.insert_many(users)
-
-# products_collection = db.get_collection("Products")
-# products_collection.insert_many(products)
-
-# shgs_collection = db.get_collection("SHGs")
-# shgs_collection.insert_many(shg)
-
-# posts_collection = db.get_collection("Posts")
-# posts_collection.insert_many(posts)
-
 contracts = [
   {
     "contract_id": 1,
@@ -177,5 +161,24 @@ contracts = [
   }
 ]
 
+db = client.get_database("shg_site")
+
+# users_collection = db.get_collection("Users")
+# users_collection.insert_one({"user_id": 4, "user_name": "Aryaman Chandra","user_email": "aryamanow@gmail.com", "user_organization": None, "user_location": "Delhi"})
+# users_collection.insert_many(users)
+
+# products_collection = db.get_collection("Products")
+# products_collection.insert_many(products)
+
+# shgs_collection.insert_many(shg)
+
+# posts_collection = db.get_collection("Posts")
+# posts_collection.insert_many(posts)
+
+
 # contracts_collection = db.get_collection("Contracts")
 # contracts_collection.insert_many(contracts)
+
+shgs_collection = db.get_collection("SHGs")
+# shgs_collection.update_one({"organisation_id": 2}, { "$set": { "organisation_num_people": 19 } })
+print(shgs_collection.count_documents({}))

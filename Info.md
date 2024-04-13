@@ -25,6 +25,7 @@ product_category
 SHG model --> 
 
 organisation_id, 
+organisation_profile_picture,
 organisation_name, 
 organisation_location, 
 organisation_num_people, 
@@ -41,6 +42,7 @@ post_header,
 post_date,
 post_description,
 post_img_link,
+organisation_profile_picture
 
 Contracts model --> 
 
